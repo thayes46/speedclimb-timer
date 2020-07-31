@@ -1,6 +1,7 @@
 from .states import speedtimer, default
-from .display import records
+from .display import records, gui
 from gpiozero import Button
+import time
 
 # Ensure these values are the same in .states/speedtimer.py
 orange_pedal = Button()  # GPIO pin for orange start pedal
@@ -11,14 +12,13 @@ grey_pedal = Button()  # GPIO pin for orange start pedal
 # 12
 
 def run():
+    leaderboard = gui.start_leaderboard_window()
     while 1:  # it's always doing one of these
-        top_times = records.get_records()
         default.run()
         # display slideshow and leaderboard
-        while 1:  # TODO: replace 1 with foot pedal checks to start
+        while not (orange_pedal.is_pressed and grey_pedal.is_pressed):
             # wait until there's an update from the pedals
+            time.sleep(1)
             pass
         speedtimer.start()
-        while 1:  # TODO: replace 1 with foot pedal checks to end
-            # run timers
-            pass
+        # start() only returns when timing loop ends and window closes

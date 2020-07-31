@@ -1,13 +1,20 @@
+import sys
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+
+
+# from .records import get_records
 
 
 def start_timing_window():
     # return window with timers
-    timing_window = Window()
+    # TODO: test this execution with both leaderboard and timing
+    timing_window = TimingWindow()
     return timing_window
 
 
-class Window(QMainWindow):
+class TimingWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
@@ -15,8 +22,9 @@ class Window(QMainWindow):
         # setting title
         self.setWindowTitle("Orange and Grey lanes")
 
-        # setting window    geometry
-        self.setGeometry(100, 100, 400, 500)
+        # setting window geometry
+        # Timer takes up top half of screen
+        self.setGeometry(0, 0, 1080, 960)
 
         # calling method
         self.UiComponents()
@@ -34,20 +42,21 @@ class Window(QMainWindow):
         self.orange_label = QLabel(self)
         self.grey_label = QLabel(self)
 
-        self.orange_label.setGeometry()  # TODO: set geometry
-        self.grey_label.setGeometry()  # TODO: set geometry
+        self.orange_label.setGeometry(0, 0, 1080, 480)
+        self.grey_label.setGeometry(0, 480, 1080, 480)
 
-        self.orange_label.setStyleSheet()  # TODO: style
-        self.grey_label.setStyleSheet()  # TODO: style
+        # TODO: make style decent
+        self.orange_label.setStyleSheet("border : 4px solid black;")
+        self.grey_label.setStyleSheet("border : 4px solid black;")
 
         self.orange_label.setText(str(self.orange_time))
         self.grey_label.setText(str(self.grey_time))
 
-        self.orange_label.setFont('Arial', 25)  # TODO: make text beeg
-        self.grey_label.setFont('Arial', 25)  # TODO: make text beeg
+        self.orange_label.setFont(QFont('Arial', 25))  # TODO: make text beeg
+        self.grey_label.setFont(QFont('Arial', 25))  # TODO: make text beeg
 
-        self.orange_label.setAlignment()  # TODO: play with alignment
-        self.grey_label.setAlignment()  # TODO: play with alignment
+        self.orange_label.setAlignment(Qt.AlignCenter)
+        self.grey_label.setAlignment(Qt.AlignCenter)
 
     def update_orange_time(self, orange_updated_time):
         self.orange_time = orange_updated_time
@@ -57,5 +66,29 @@ class Window(QMainWindow):
         self.grey_time = grey_updated_time
         self.grey_label.setText(str(self.grey_time))
 
-# TODO: make leaderboard
+
+def start_leaderboard_window():
+    # return window with timers
+    leaderboard_window = LeaderBoardWindow()
+    return leaderboard_window
+
+
+class LeaderBoardWindow(QMainWindow):
+    # TODO: implement
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Leaderboards")
+        self.setGeometry(100, 100, 400, 500)
+        self.UiComponents()
+        self.show()
+
+    def UiComponents(self):
+        self.top_times = get_records()
+
+
 # TODO: display slideshow
+
+timing_app = QApplication(sys.argv)
+window = start_timing_window()
+sys.exit(timing_app)
+

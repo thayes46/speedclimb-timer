@@ -2,24 +2,41 @@ from gpiozero import Button, LED
 from ..display import gui
 import time
 
+orange_started = False
+orange_pedal_primed = False
+orange_finished = False
+orange_initial_time = 0
+orange_final_time = 0
+orange_time = 0
+orange_button = Button()  # GPIO pin for orange finish button
+orange_pedal = Button()  # GPIO pin for orange start pedal
+orange_lights = LED()  # GPIO pin for orange flashy flashies
+
+grey_started = False
+grey_pedal_primed = False
+grey_finished = False
+grey_initial_time = 0
+grey_final_time = 0
+grey_time = 0
+grey_button = Button()  # GPIO pin for grey finish button
+grey_pedal = Button()  # GPIO pin for grey start pedal
+grey_lights = LED()  # GPIO pin for grey flashy flashies
+
 
 def start():
-    orange_started = False
-    orange_pedal_primed = False
-    orange_finished = False
-    orange_button = Button()  # GPIO pin for orange finish button
-    orange_pedal = Button()  # GPIO pin for orange start pedal
-    orange_lights = LED()  # GPIO pin for orange flashy flashies
-
-    grey_started = False
-    grey_pedal_primed = False
-    grey_finished = False
-    grey_button = Button()  # GPIO pin for grey finish button
-    grey_pedal = Button()  # GPIO pin for grey start pedal
-    grey_lights = LED()  # GPIO pin for grey flashy flashies
-
+    global orange_started
+    global orange_pedal_primed
+    global orange_finished
+    global orange_initial_time
+    global orange_final_time
+    global orange_time
+    global grey_started
+    global grey_pedal_primed
+    global grey_finished
+    global grey_initial_time
+    global grey_final_time
+    global grey_time
     timing_window = gui.start_timing_window()
-
     while 1:
         # Check for finish
         if orange_started:
@@ -76,3 +93,33 @@ def start():
                 grey_lights.blink(on_time=0.125, off_time=0.125,
                                   fade_in_time=0, fade_out_time=0, n=20,
                                   background=True)
+            time.sleep(10)
+            reset_lanes()
+    timing_window.close()
+
+
+def reset_lanes():
+    global orange_started
+    global orange_pedal_primed
+    global orange_finished
+    global orange_initial_time
+    global orange_final_time
+    global orange_time
+    global grey_started
+    global grey_pedal_primed
+    global grey_finished
+    global grey_initial_time
+    global grey_final_time
+    global grey_time
+    orange_started = False
+    orange_pedal_primed = False
+    orange_finished = False
+    orange_initial_time = 0
+    orange_final_time = 0
+    orange_time = 0
+    grey_started = False
+    grey_pedal_primed = False
+    grey_finished = False
+    grey_initial_time = 0
+    grey_final_time = 0
+    grey_time = 0

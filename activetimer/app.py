@@ -9,9 +9,11 @@ grey_pedal = Button()  # GPIO pin for orange start pedal
 
 
 # Running total of hours worked on this for fun:
-# 12
+# 19
 
+from .display import gui
 def run():
+
     leaderboard = gui.start_leaderboard_window()
     while 1:  # it's always doing one of these
         default.run()

@@ -2,6 +2,8 @@ from gpiozero import Button, LED
 from ..display import gui
 import time
 
+exit_program = False
+
 orange_started = False
 orange_pedal_primed = False
 orange_finished = False
@@ -95,7 +97,6 @@ def start():
                                   background=True)
             time.sleep(10)
             reset_lanes()
-    timing_window.close()
 
 
 def reset_lanes():

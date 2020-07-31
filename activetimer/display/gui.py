@@ -1,17 +1,12 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+from ..states import speedtimer
+from ..states.speedtimer import exit_program, orange_time, grey_time
 import sys
+import time
 
 # from .records import get_records
-
-
-def start_timing_window():
-    # return window with timers
-    # TODO: test this execution with both leaderboard and timing
-    timing_window = TimingWindow()
-    timing_window.show()
-    return timing_window
 
 
 class TimingWindow(QMainWindow):
@@ -29,8 +24,10 @@ class TimingWindow(QMainWindow):
         # calling method
         self.UiComponents()
 
-        # showing all the widgets
-
+        # here's the cursed shit to make it update
+        while not exit_program:
+            self.update_orange_time(orange_time)
+            self.update_grey_time(grey_time)
 
     # method for widgets
     def UiComponents(self):
@@ -46,8 +43,8 @@ class TimingWindow(QMainWindow):
         self.grey_label.setGeometry(0, 480, 1080, 480)
 
         # TODO: make style decent
-        self.orange_label.setStyleSheet("border : 4px solid black;")
-        self.grey_label.setStyleSheet("border : 4px solid black;")
+        self.orange_label.setStyleSheet("border : 16px solid orange;")
+        self.grey_label.setStyleSheet("border : 16px solid grey;")
 
         self.orange_label.setText(str(self.orange_time))
         self.grey_label.setText(str(self.grey_time))
@@ -59,12 +56,10 @@ class TimingWindow(QMainWindow):
         self.grey_label.setAlignment(Qt.AlignCenter)
 
     def update_orange_time(self, orange_updated_time):
-        self.orange_time = orange_updated_time
-        self.orange_label.setText(str(self.orange_time))
+        self.orange_label.setText(str(orange_updated_time))
 
     def update_grey_time(self, grey_updated_time):
-        self.grey_time = grey_updated_time
-        self.grey_label.setText(str(self.grey_time))
+        self.grey_label.setText(str(grey_updated_time))
 
 
 def start_leaderboard_window():
@@ -87,7 +82,9 @@ class LeaderBoardWindow(QMainWindow):
 
 
 # TODO: display slideshow
+# TODO: get the display to update
 
-app = QApplication(sys.argv)
-timing = start_timing_window()
-sys.exit(app.exec_())
+App = QApplication(sys.argv)
+window = TimingWindow()
+window.show()
+App.exec_()

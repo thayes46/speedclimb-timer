@@ -1,8 +1,7 @@
-import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-
+import sys
 
 # from .records import get_records
 
@@ -11,6 +10,7 @@ def start_timing_window():
     # return window with timers
     # TODO: test this execution with both leaderboard and timing
     timing_window = TimingWindow()
+    timing_window.show()
     return timing_window
 
 
@@ -30,7 +30,7 @@ class TimingWindow(QMainWindow):
         self.UiComponents()
 
         # showing all the widgets
-        self.show()
+
 
     # method for widgets
     def UiComponents(self):
@@ -88,7 +88,6 @@ class LeaderBoardWindow(QMainWindow):
 
 # TODO: display slideshow
 
-timing_app = QApplication(sys.argv)
-window = start_timing_window()
-sys.exit(timing_app)
-
+app = QApplication(sys.argv)
+timing = start_timing_window()
+sys.exit(app.exec_())

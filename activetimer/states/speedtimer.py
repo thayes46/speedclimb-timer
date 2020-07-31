@@ -9,12 +9,14 @@ def start():
     orange_finished = False
     orange_button = Button()  # GPIO pin for orange finish button
     orange_pedal = Button()  # GPIO pin for orange start pedal
+    orange_lights = LED()  # GPIO pin for orange flashy flashies
 
     grey_started = False
     grey_pedal_primed = False
     grey_finished = False
     grey_button = Button()  # GPIO pin for grey finish button
     grey_pedal = Button()  # GPIO pin for grey start pedal
+    grey_lights = LED()  # GPIO pin for grey flashy flashies
 
     while 1:
         # Check for finish
@@ -59,3 +61,16 @@ def start():
         # display times
         gui.display_orange_time(orange_time)
         gui.display_grey_time(grey_time)
+
+        # Lightshow for winner
+        if orange_finished and grey_finished:
+            if orange_time < grey_time:
+                # orange won
+                orange_lights.blink(on_time=0.125, off_time=0.125,
+                                    fade_in_time=0, fade_out_time=0, n=20,
+                                    background=True)
+            else:
+                # grey won
+                grey_lights.blink(on_time=0.125, off_time=0.125,
+                                  fade_in_time=0, fade_out_time=0, n=20,
+                                  background=True)

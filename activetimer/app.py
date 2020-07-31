@@ -1,9 +1,17 @@
 from .states import speedtimer, default
 from .display import records
+from gpiozero import Button
 
+# Ensure these values are the same in .states/speedtimer.py
+orange_pedal = Button()  # GPIO pin for orange start pedal
+grey_pedal = Button()  # GPIO pin for orange start pedal
+
+
+# Running total of hours worked on this for fun:
+# 12
 
 def run():
-    while 1: # it's always doing one of these
+    while 1:  # it's always doing one of these
         top_times = records.get_records()
         default.run()
         # display slideshow and leaderboard

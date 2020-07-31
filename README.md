@@ -3,6 +3,8 @@ Open source timer for speed climbing
 
 Not intended for professional use, initial use case is for kids' birthday parties to allow for kids to race
 
+Implemented at [Active Climbing Augusta](https://www.activeclimbingaugusta.com)
+
 ## How to operate
 
 clone this repo and set it as a cron job to run the main script on boot

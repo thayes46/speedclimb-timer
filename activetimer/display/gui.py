@@ -15,7 +15,7 @@ class Window(QMainWindow):
         # setting title
         self.setWindowTitle("Orange and Grey lanes")
 
-        # setting window geometry
+        # setting window    geometry
         self.setGeometry(100, 100, 400, 500)
 
         # calling method

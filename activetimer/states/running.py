@@ -42,10 +42,81 @@ class Main(QThread):
     def run(self):
         while not self.stop_timer:
             # Main program loop
-            time.sleep(2)
-            self.timing_window.update_grey_time(1)
-            time.sleep(2)
-            self.stop_timer = True
+            # TODO: add a way to set stop timer to false and git out
+
+            # Check for finish
+            if self.orange_started:
+                if self.orange_button.is_pressed:
+                    self.orange_final_time = time.time()
+                    self.orange_finished = True
+            if self.grey_started:
+                if self.grey_button.is_pressed:
+                    self.grey_final_time = time.time()
+                    self.grey_finished = True
+
+            # Check for start/prime
+            if self.orange_pedal_primed:
+                if not self.orange_pedal.is_pressed:
+                    self.orange_initial_time = time.time()
+                    self.orange_started = True
+                    self.orange_pedal_primed = False
+            else:
+                if self.orange_pedal.is_pressed:
+                    self.orange_pedal_primed = True
+            # same but for grey
+            if self.grey_pedal_primed:
+                if not self.grey_pedal.is_pressed:
+                    self.grey_initial_time = time.time()
+                    self.grey_started = True
+                    self.grey_pedal_primed = False
+            else:
+                if self.grey_pedal.is_pressed:
+                    self.grey_pedal_primed = True
+
+            # get current times
+            if self.orange_finished:
+                self.orange_time = self.orange_final_time - self.orange_initial_time
+            else:
+                self.orange_time = time.time() - self.orange_initial_time
+            if self.grey_finished:
+                self.grey_time = self.grey_final_time - self.grey_initial_time
+            else:
+                self.grey_time = time.time() - self.grey_initial_time
+
+            # display times
+            self.timing_window.display_orange_time(self.orange_time)
+            self.timing_window.display_grey_time(self.grey_time)
+
+            # Lightshow for winner
+            if self.orange_finished and self.grey_finished:
+                if self.orange_time < self.grey_time:
+                    # orange won
+                    self.orange_lights.blink(on_time=0.125, off_time=0.125,
+                                             fade_in_time=0, fade_out_time=0,
+                                             n=20,
+                                             background=True)
+                else:
+                    # grey won
+                    self.grey_lights.blink(on_time=0.125, off_time=0.125,
+                                           fade_in_time=0, fade_out_time=0,
+                                           n=20,
+                                           background=True)
+                time.sleep(10)
+                self.reset_lanes(self)
+
+    def reset_lanes(self):
+        self.orange_started = False
+        self.orange_pedal_primed = False
+        self.orange_finished = False
+        self.orange_initial_time = 0
+        self.orange_final_time = 0
+        self.orange_time = 0
+        self.grey_started = False
+        self.grey_pedal_primed = False
+        self.grey_finished = False
+        self.grey_initial_time = 0
+        self.grey_final_time = 0
+        self.grey_time = 0
 
 
 class TimingWindow(QMainWindow):

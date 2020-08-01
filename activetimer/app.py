@@ -1,4 +1,4 @@
-from .states import speedtimer, default
+from .states import running, default
 from .display import records, gui
 from gpiozero import Button
 import time
@@ -9,12 +9,10 @@ grey_pedal = Button()  # GPIO pin for orange start pedal
 
 
 # Running total of hours worked on this for fun:
-# 19
+# 22
 
-from .display import gui
 def run():
-
-    leaderboard = gui.start_leaderboard_window()
+    gui.display_leaders()
     while 1:  # it's always doing one of these
         default.run()
         # display slideshow and leaderboard
@@ -22,5 +20,5 @@ def run():
             # wait until there's an update from the pedals
             time.sleep(1)
             pass
-        speedtimer.start()
+        running.run()
         # start() only returns when timing loop ends and window closes

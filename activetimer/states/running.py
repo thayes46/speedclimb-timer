@@ -1,21 +1,15 @@
-import sys, time
+import time
 from gpiozero import Button, LED
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-
-"""
-Let's do this.... again.
-I guess you could call it, redoing it
-Rewrite for utilization of Qt threading
-"""
 
 
 class Main(QThread):
     def __init__(self):
         QThread.__init__(self)
         self.stop_timer = False
-
+        # TODO: pin assignment
         self.orange_started = False
         self.orange_pedal_primed = False
         self.orange_finished = False
@@ -42,7 +36,8 @@ class Main(QThread):
     def run(self):
         while not self.stop_timer:
             # Main program loop
-            # TODO: add a way to set stop timer to false and git out
+            # TODO: add a way to set stop timer to false,
+            #   git out and kill window
 
             # Check for finish
             if self.orange_started:
@@ -75,7 +70,8 @@ class Main(QThread):
 
             # get current times
             if self.orange_finished:
-                self.orange_time = self.orange_final_time - self.orange_initial_time
+                self.orange_time = self.orange_final_time - \
+                                   self.orange_initial_time
             else:
                 self.orange_time = time.time() - self.orange_initial_time
             if self.grey_finished:
@@ -164,8 +160,18 @@ class TimingWindow(QMainWindow):
         self.grey_label.setText(str(grey_updated_time))
 
 
+timing_thread = None
+
+
 def run():
     timing_app = QApplication([])
+    global timing_thread
     timing_thread = Main()
     timing_thread.start()
     timing_app.exec_()
+
+
+def stop():
+    global timing_thread
+    if timing_thread is not None:
+        timing_thread.terminate()

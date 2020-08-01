@@ -8,7 +8,7 @@ import time
 
 # from .records import get_records
 
-
+"""
 class TimingWindow(QMainWindow):
 
     def __init__(self):
@@ -60,7 +60,7 @@ class TimingWindow(QMainWindow):
 
     def update_grey_time(self, grey_updated_time):
         self.grey_label.setText(str(grey_updated_time))
-
+"""
 
 def start_leaderboard_window():
     # return window with timers

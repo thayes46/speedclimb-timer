@@ -14,11 +14,12 @@ grey_pedal = Button()  # GPIO pin for orange start pedal
 def run():
     gui.display_leaders()
     while 1:  # it's always doing one of these
+        running.stop()
         default.run()
         # display slideshow and leaderboard
         while not (orange_pedal.is_pressed and grey_pedal.is_pressed):
             # wait until there's an update from the pedals
             time.sleep(1)
             pass
+        default.stop()
         running.run()
-        # start() only returns when timing loop ends and window closes

@@ -1,11 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from ..states import speedtimer
-from ..states.speedtimer import exit_program, orange_time, grey_time
-import sys
-import time
-
 
 # from .records import get_records
 
@@ -29,5 +24,5 @@ class LeaderBoardWindow(QMainWindow):
         self.top_times = get_records()
 
 def display_leaders():
-    # TODO: display slideshow
+    # TODO: implement
     pass

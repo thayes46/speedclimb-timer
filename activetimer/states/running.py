@@ -99,6 +99,7 @@ class Main(QThread):
                                            background=True)
                 time.sleep(10)
                 self.reset_lanes(self)
+        self.timing_window.yeet()
 
     def reset_lanes(self):
         self.orange_started = False
@@ -158,6 +159,9 @@ class TimingWindow(QMainWindow):
 
     def update_grey_time(self, grey_updated_time):
         self.grey_label.setText(str(grey_updated_time))
+
+    def yeet(self):
+        self.close()
 
 
 timing_thread = None

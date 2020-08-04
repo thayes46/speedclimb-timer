@@ -8,6 +8,7 @@ from PyQt5.QtGui import *
 class Main(QThread):
     def __init__(self):
         QThread.__init__(self)
+        self.threadactive = True
         self.stop_timer = False
 
         self.orange_started = False
@@ -115,6 +116,10 @@ class Main(QThread):
         self.grey_final_time = 0
         self.grey_time = 0
 
+    def stop(self):
+        self.threadactive = False
+        self.wait()
+
 
 class TimingWindow(QMainWindow):
 
@@ -178,4 +183,4 @@ def run():
 def stop():
     global timing_thread
     if timing_thread is not None:
-        timing_thread.terminate()
+        timing_thread.stop()

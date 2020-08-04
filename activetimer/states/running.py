@@ -80,8 +80,8 @@ class Main(QThread):
                 self.grey_time = time.time() - self.grey_initial_time
 
             # display times
-            self.timing_window.display_orange_time(self.orange_time)
-            self.timing_window.display_grey_time(self.grey_time)
+            self.timing_window.update_orange_time(self.orange_time)
+            self.timing_window.update_grey_time(self.grey_time)
 
             # Lightshow for winner
             if self.orange_finished and self.grey_finished:

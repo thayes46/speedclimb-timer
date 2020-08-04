@@ -177,10 +177,10 @@ def run():
     global timing_thread
     timing_thread = Main()
     timing_thread.start()
-    timing_app.exec_()
+    time.sleep(5)
+    timing_thread.stop()
 
 
 def stop():
     global timing_thread
-    if timing_thread is not None:
-        timing_thread.stop()
+    timing_thread.stop()

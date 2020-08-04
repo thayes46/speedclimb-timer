@@ -1,8 +1,5 @@
-from running import run, stop
-import time
+from running import run
+
 
 run()
 
-time.sleep(5)
-
-stop()

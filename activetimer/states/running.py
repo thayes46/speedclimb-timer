@@ -179,6 +179,7 @@ def run():
     timing_thread.start()
     time.sleep(5)
     timing_thread.stop()
+    timing_app.exec_()
 
 
 def stop():

@@ -33,6 +33,8 @@ class Main(QThread):
 
         self.timing_window = TimingWindow()
         self.timing_window.show()
+        time.sleep(10)
+        self.timing_window.yeet()
 
     def run(self):
         while not self.stop_timer:
@@ -176,13 +178,4 @@ def run():
     timing_app = QApplication([])
     global timing_thread
     timing_thread = Main()
-    timing_thread.start()
     timing_app.exec_()
-    time.sleep(2)
-    timing_thread.stop()
-
-
-
-def stop():
-    global timing_thread
-    timing_thread.stop()

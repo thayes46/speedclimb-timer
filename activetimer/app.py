@@ -12,6 +12,7 @@ grey_pedal = Button(20)  # GPIO pin for orange start pedal
 # 22
 
 def run():
+    """
     gui.display_leaders()
     while 1:  # it's always doing one of these
         running.stop()
@@ -21,5 +22,6 @@ def run():
             # wait until there's an update from the pedals
             time.sleep(3)
             pass
-        default.stop()
-        running.run()
+    default.stop()
+    """
+    running.run()

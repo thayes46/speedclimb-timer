@@ -168,6 +168,7 @@ class TimingWindow(QMainWindow):
         self.grey_label.setText(str(grey_updated_time))
 
     def yeet(self):
+
         self.close()
 
 

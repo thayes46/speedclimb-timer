@@ -3,9 +3,6 @@ from .display import records, gui
 from gpiozero import Button
 import time
 
-# Ensure these values are the same in .states/speedtimer.py
-orange_pedal = Button(21)  # GPIO pin for orange start pedal
-grey_pedal = Button(20)  # GPIO pin for orange start pedal
 
 
 # Running total of hours worked on this for fun:

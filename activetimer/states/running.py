@@ -22,9 +22,9 @@ class Main(QThread):
         self.orange_initial_time = 0
         self.orange_final_time = 0
         self.orange_time = 0
-        self.orange_button = Button()  # GPIO pin for orange finish button
-        self.orange_pedal = Button()  # GPIO pin for orange start pedal
-        self.orange_lights = LED()  # GPIO pin for orange flashy flashies
+        self.orange_button = Button(24)  # GPIO pin for orange finish button
+        self.orange_pedal = Button(21)  # GPIO pin for orange start pedal
+        self.orange_lights = LED(23)  # GPIO pin for orange flashy flashies
 
         self.grey_started = False
         self.grey_pedal_primed = False
@@ -32,9 +32,9 @@ class Main(QThread):
         self.grey_initial_time = 0
         self.grey_final_time = 0
         self.grey_time = 0
-        self.grey_button = Button()  # GPIO pin for grey finish button
-        self.grey_pedal = Button()  # GPIO pin for grey start pedal
-        self.grey_lights = LED()  # GPIO pin for grey flashy flashies
+        self.grey_button = Button(14)  # GPIO pin for grey finish button
+        self.grey_pedal = Button(20)  # GPIO pin for grey start pedal
+        self.grey_lights = LED(15)  # GPIO pin for grey flashy flashies
 
         self.timing_window = TimingWindow()
         self.timing_window.show()
@@ -45,6 +45,8 @@ class Main(QThread):
             time.sleep(2)
             self.timing_window.update_grey_time(1)
             time.sleep(2)
+            self.timing_window.update_orange_time(3)
+            time.sleep(5)
             self.stop_timer = True
 
 

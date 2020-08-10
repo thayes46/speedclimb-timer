@@ -33,15 +33,29 @@ class MainWindow(QMainWindow):
         print("starting")
         self.timing_widget = TimingWindow()
         self.timing_widget.show()
-        time.sleep(1)
-        self.timing_widget.begin()
 
+
+        # Dummy timer to give the widget time to get going
+        self.dummy_timer = QTimer()
+        self.dummy_timer.setSingleShot(True)
+        self.dummy_timer.setInterval(225)
+        # function connected to is the startup
+        self.dummy_timer.timeout.connect(self.woah_nelly)
+        self.dummy_timer.start()
+
+    # startup function for widget/thread
     def woah_nelly(self):
-        print("woah nelly")
-        self.timing_widget.begin()
-        print("settle down now")
+        # main method of timers
+        # Recursive boolean to imitate thread
+        while self.timing_widget.begin():
+            # Need to process signals to get any update
+            QApplication.processEvents()
+
+            # Restricting counter to update every 1/2 second. Arbitrary
+            time.sleep(0.5)
+        QApplication.processEvents()
         self.timing_widget.yeet()
-        self.destroy()
+        self.timing_widget.destroy()
 
 
 def reset_lanes():
@@ -57,24 +71,6 @@ def reset_lanes():
     grey_initial_time = 0
     grey_final_time = 0
     grey_time = 0
-
-
-class TimingThread(QThread):
-    # Thread running timer logic
-    def __init__(self):
-        QThread.__init__(self)
-        reset_lanes()
-        self.stop_timer = False
-
-    def go(self, TimingWindow):
-        # loop
-        print("Starting main loop")
-        while not self.stop_timer:
-            time.sleep(2)
-            TimingWindow.update_orange_time(1)
-            time.sleep(2)
-            self.stop_timer = True
-        print("done with loop")
 
 
 class TimingWindow(QWidget):
@@ -94,9 +90,15 @@ class TimingWindow(QWidget):
         # setup UI
         self.UiComponents()
 
+        # potentially arbitrary
+        self.dummy_counter = 1
+
     def begin(self):
-        self.update_grey_time(1)
-        time.sleep(1)
+        print("Updating times")
+        self.update_orange_time(self.dummy_counter)
+        self.dummy_counter = self.dummy_counter + 1
+        return_value = self.dummy_counter < 10
+        return return_value
 
     # method for widgets
     def UiComponents(self):

@@ -23,6 +23,4 @@ class LeaderBoardWindow(QMainWindow):
     def UiComponents(self):
         self.top_times = get_records()
 
-def display_leaders():
-    # TODO: implement
-    pass
+

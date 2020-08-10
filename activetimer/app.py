@@ -11,8 +11,8 @@ from PyQt5.QtGui import *
 
 def run():
     while 1:
-        # Logic for when to kick out based on buttons being pushed is handled in
-        # each running widget respectively
+        # Logic for when to kick out based on buttons being pushed is handled
+        # in each running widget respectively
         # display_leaders()
         # Eventually also have slideshow here
         display_timer()
@@ -25,7 +25,7 @@ stuck together
 """
 
 """
-To add back in after testing
+To add back in on deploy to pi
 orange_button = Button(24)  # GPIO pin for orange finish button
 orange_pedal = Button(21)  # GPIO pin for orange start pedal
 orange_lights = LED(23)  # GPIO pin for orange flashy flashies
@@ -152,6 +152,7 @@ class TimingWidget(QWidget):
 # default slideshow + leaderboard
 
 def display_timer():
+    reset_lanes()
     app = QApplication([])
     window = TimingWindow()
     app.exec_()

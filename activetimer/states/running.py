@@ -38,6 +38,7 @@ class Main(QThread):
 
     def run(self):
         while not self.stop_timer:
+            QApplication.processEvents()
             # Main program loop
             # TODO: add a way to set stop timer to false,
             #   git out and kill window
@@ -83,9 +84,9 @@ class Main(QThread):
                 self.grey_time = time.time() - self.grey_initial_time
 
             # display times
-            self.timing_window.update_orange_time(self.orange_time)
-            self.timing_window.update_grey_time(self.grey_time)
-
+            self.timing_window.update_orange_time('{:.3f}'.format(self.orange_time))
+            self.timing_window.update_grey_time('{:.3f}'.format(self.grey_time))
+"""
             # Lightshow for winner
             if self.orange_finished and self.grey_finished:
                 if self.orange_time < self.grey_time:
@@ -102,6 +103,7 @@ class Main(QThread):
                                            background=True)
                 time.sleep(10)
                 self.reset_lanes(self)
+                """
         self.timing_window.yeet()
 
     def reset_lanes(self):

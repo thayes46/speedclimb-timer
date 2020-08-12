@@ -66,12 +66,13 @@ class TimingWindow(QMainWindow):
     def woah_nelly(self):
         # main method of timers
         # Recursive boolean to imitate thread
-        while self.timing_widget.begin():
+        start_time = time.time()
+        while self.timing_widget.begin(start_time):
             # Need to process signals to get any update
             QApplication.processEvents()
 
             # Restricting counter to update every 1/2 second. Arbitrary
-            time.sleep(0.5)
+            time.sleep(0.009)
         QApplication.processEvents()
         self.timing_widget.yeet()
         self.timing_widget.destroy()
@@ -112,11 +113,12 @@ class TimingWidget(QWidget):
         # potentially arbitrary
         self.dummy_counter = 1
 
-    def begin(self):
+    def begin(self, start_time):
         print("Updating times")
-        self.update_orange_time(self.dummy_counter)
-        self.dummy_counter = self.dummy_counter + 1
-        return_value = self.dummy_counter < 10
+        self.current_time = time.time() - start_time
+        self.update_orange_time('{:.3f}'.format(self.current_time))
+        # self.dummy_counter = self.dummy_counter + 1
+        return_value = self.current_time < 10.0
         return return_value
 
     # method for widgets

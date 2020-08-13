@@ -21,16 +21,26 @@ def run():
 """
 I really didn't want to make this a megascript, however the Pi GPIO can only
 be called from 1 python script so that lumps pretty much everything to be
-stuck together
+stuck togeth
 """
 
 # To add back in on deploy to pi
-orange_button = Button(24)  # GPIO pin for orange finish button
-orange_pedal = Button(21)  # GPIO pin for orange start pedal
-orange_lights = LED(23)  # GPIO pin for orange flashy flashies
-grey_button = Button(14)  # GPIO pin for grey finish button
-grey_pedal = Button(20)  # GPIO pin for grey start pedal
-grey_lights = LED(15)  # GPIO pin for grey flashy flashies
+# orange_button = Button(24)  # GPIO pin for orange finish button
+# orange_pedal = Button(21)  # GPIO pin for orange start pedal
+# orange_lights = LED(23)  # GPIO pin for orange flashy flashies
+# grey_button = Button(14)  # GPIO pin for grey finish button
+# grey_pedal = Button(20)  # GPIO pin for grey start pedal
+# grey_lights = LED(15)  # GPIO pin for grey flashy flashies
+
+
+# test putting both to pedals
+orange_pedal = Button(21)  # orange pedal
+orange_button = Button(20)  # grey pedal
+
+grey_pedal = Button(24)
+grey_button = Button(14)
+orange_lights = LED(23)
+grey_lights = LED(15)
 
 orange_started = False
 orange_pedal_primed = False

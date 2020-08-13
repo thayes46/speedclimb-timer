@@ -169,12 +169,12 @@ class TimingWidget(QWidget):
 
             # Check for start/prime
             if self.orange_pedal_primed:
-                if not self.orange_pedal.is_pressed():
+                if not self.orange_pedal.is_pressed:
                     self.orange_initial_time = time.time()
                     self.orange_started = True
                     self.orange_pedal_primed = False
             else:
-                if self.orange_pedal.is_pressed():
+                if self.orange_pedal.is_pressed:
                     self.orange_pedal_primed = True
             # same but for grey
             if self.grey_pedal_primed:

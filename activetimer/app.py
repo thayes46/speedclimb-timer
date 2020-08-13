@@ -198,8 +198,8 @@ class TimingWidget(QWidget):
                 self.grey_time = time.time() - self.grey_initial_time
 
             # display times
-            self.timing_window.update_orange_time('{:.3f}'.format(self.orange_time))
-            self.timing_window.update_grey_time('{:.3f}'.format(self.grey_time))
+            self.update_orange_time('{:.3f}'.format(self.orange_time))
+            self.update_grey_time('{:.3f}'.format(self.grey_time))
 
 
 # class DefaultWidget(QWidget):

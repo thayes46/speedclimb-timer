@@ -96,12 +96,12 @@ class TimingWidget(QWidget):
         self.dummy_counter = 1
         self.stop_timer = False
         # test setup
-        self.orange_pedal = Button(21)  # orange pedal
+        self.orange_pedal = Button(21, False)  # orange pedal
         self.orange_pedal.when_pressed = self.set_orange_start
-        self.orange_button = Button(20)  # grey pedal
+        self.orange_button = Button(20, False)  # grey pedal
 
-        self.grey_pedal = Button(24)
-        self.grey_button = Button(14)
+        self.grey_pedal = Button(24, False)
+        self.grey_button = Button(14, False)
         self.orange_lights = LED(23)
         self.grey_lights = LED(15)
 

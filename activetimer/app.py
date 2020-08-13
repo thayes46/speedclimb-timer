@@ -10,12 +10,31 @@ from PyQt5.QtGui import *
 # 62
 
 def run():
-    while 1:
-        # Logic for when to kick out based on buttons being pushed is handled
-        # in each running widget respectively
-        # display_leaders()
-        # Eventually also have slideshow here
-        display_timer()
+    # Logic for when to kick out based on buttons being pushed is handled
+    # in each running widget respectively
+    # display_leaders()
+    # Eventually also have slideshow here
+    orange_pedal = Button(21)  # orange pedal
+    orange_button = Button(20)  # grey pedal
+
+    grey_pedal = Button(24)
+    grey_button = Button(14)
+    orange_lights = LED(23)
+    grey_lights = LED(15)
+
+    orange_started = False
+    orange_pedal_primed = False
+    orange_finished = False
+    orange_initial_time = 0
+    orange_final_time = 0
+    orange_time = 0
+    grey_started = False
+    grey_pedal_primed = False
+    grey_finished = False
+    grey_initial_time = 0
+    grey_final_time = 0
+    grey_time = 0
+    display_timer()
 
 
 """
@@ -34,6 +53,7 @@ stuck togeth
 
 
 # test putting both to pedals
+"""
 orange_pedal = Button(21)  # orange pedal
 orange_button = Button(20)  # grey pedal
 
@@ -54,6 +74,7 @@ grey_finished = False
 grey_initial_time = 0
 grey_final_time = 0
 grey_time = 0
+"""
 
 
 class TimingWindow(QMainWindow):

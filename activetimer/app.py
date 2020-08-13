@@ -114,6 +114,7 @@ class TimingWidget(QWidget):
 
         # potentially arbitrary
         self.dummy_counter = 1
+        self.stop_timer = False
 
     def begin(self):
         self.run()

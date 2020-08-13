@@ -1,6 +1,6 @@
 import time
 from gpiozero import Button, LED
-from .display import records
+# from .display import records
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -95,6 +95,29 @@ class TimingWidget(QWidget):
         # potentially arbitrary
         self.dummy_counter = 1
         self.stop_timer = False
+        # test setup
+        self.orange_pedal = Button(21)  # orange pedal
+        self.orange_button = Button(20)  # grey pedal
+
+        self.grey_pedal = Button(24)
+        self.grey_button = Button(14)
+        self.orange_lights = LED(23)
+        self.grey_lights = LED(15)
+
+        self.orange_started = False
+        self.orange_pedal_primed = False
+        self.orange_finished = False
+        self.orange_initial_time = 0
+        self.orange_final_time = 0
+        self.orange_time = 0
+        self.grey_started = False
+        self.grey_pedal_primed = False
+        self.grey_finished = False
+        self.grey_initial_time = 0
+        self.grey_final_time = 0
+        self.grey_time = 0
+
+
 
     def begin(self):
         self.run()
@@ -135,48 +158,48 @@ class TimingWidget(QWidget):
             #   git out and kill window
 
             # Check for finish
-            if orange_started:
-                if orange_button.is_pressed:
-                    orange_final_time = time.time()
-                    orange_finished = True
-            if grey_started:
-                if grey_button.is_pressed:
-                    grey_final_time = time.time()
-                    grey_finished = True
+            if self.orange_started:
+                if self.orange_button.is_pressed:
+                    self.orange_final_time = time.time()
+                    self.orange_finished = True
+            if self.grey_started:
+                if self.grey_button.is_pressed:
+                    self.grey_final_time = time.time()
+                    self.grey_finished = True
 
             # Check for start/prime
-            if orange_pedal_primed:
-                if not orange_pedal.is_pressed:
-                    orange_initial_time = time.time()
-                    orange_started = True
-                    orange_pedal_primed = False
+            if self.orange_pedal_primed:
+                if not self.orange_pedal.is_pressed:
+                    self.orange_initial_time = time.time()
+                    self.orange_started = True
+                    self.orange_pedal_primed = False
             else:
-                if orange_pedal.is_pressed:
-                    orange_pedal_primed = True
+                if self.orange_pedal.is_pressed:
+                    self.orange_pedal_primed = True
             # same but for grey
-            if grey_pedal_primed:
-                if not grey_pedal.is_pressed:
-                    grey_initial_time = time.time()
-                    grey_started = True
-                    grey_pedal_primed = False
+            if self.grey_pedal_primed:
+                if not self.grey_pedal.is_pressed:
+                    self.grey_initial_time = time.time()
+                    self.grey_started = True
+                    self.grey_pedal_primed = False
             else:
-                if grey_pedal.is_pressed:
-                    grey_pedal_primed = True
+                if self.grey_pedal.is_pressed:
+                    self.grey_pedal_primed = True
 
             # get current times
-            if orange_finished:
-                orange_time = orange_final_time - \
-                              orange_initial_time
+            if self.orange_finished:
+                self.orange_time = self.orange_final_time - \
+                              self.orange_initial_time
             else:
-                orange_time = time.time() - orange_initial_time
-            if grey_finished:
-                grey_time = grey_final_time - grey_initial_time
+                self.orange_time = time.time() - self.orange_initial_time
+            if self.grey_finished:
+                self.grey_time = self.grey_final_time - self.grey_initial_time
             else:
-                grey_time = time.time() - grey_initial_time
+                self.grey_time = time.time() - self.grey_initial_time
 
             # display times
-            self.timing_window.update_orange_time('{:.3f}'.format(orange_time))
-            self.timing_window.update_grey_time('{:.3f}'.format(grey_time))
+            self.timing_window.update_orange_time('{:.3f}'.format(self.orange_time))
+            self.timing_window.update_grey_time('{:.3f}'.format(self.grey_time))
 
 
 # class DefaultWidget(QWidget):
@@ -193,25 +216,3 @@ def display_leaders():
     # TODO: implement
     pass
 
-# test setup
-orange_pedal = Button(21)  # orange pedal
-orange_button = Button(20)  # grey pedal
-
-grey_pedal = Button(24)
-grey_button = Button(14)
-orange_lights = LED(23)
-grey_lights = LED(15)
-
-orange_started = False
-orange_pedal_primed = False
-orange_finished = False
-orange_initial_time = 0
-orange_final_time = 0
-orange_time = 0
-grey_started = False
-grey_pedal_primed = False
-grey_finished = False
-grey_initial_time = 0
-grey_final_time = 0
-grey_time = 0
-run()

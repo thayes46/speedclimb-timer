@@ -190,11 +190,11 @@ class TimingWidget(QWidget):
             if self.orange_finished:
                 self.orange_time = self.orange_final_time - \
                               self.orange_initial_time
-            else:
+            elif self.orange_started:
                 self.orange_time = time.time() - self.orange_initial_time
             if self.grey_finished:
                 self.grey_time = self.grey_final_time - self.grey_initial_time
-            else:
+            elif self.grey_started:
                 self.grey_time = time.time() - self.grey_initial_time
 
             # display times

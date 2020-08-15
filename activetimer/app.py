@@ -117,8 +117,8 @@ class TimingWidget(QWidget):
         self.orange_label.setText("0.000")
         self.grey_label.setText("0.000")
 
-        self.orange_label.setFont(QFont('Arial', 100))  # TODO: make text beeg
-        self.grey_label.setFont(QFont('Arial', 100))  # TODO: make text beeg
+        self.orange_label.setFont(QFont('Arial', 150))
+        self.grey_label.setFont(QFont('Arial', 150))
 
         self.orange_label.setAlignment(Qt.AlignCenter)
         self.grey_label.setAlignment(Qt.AlignCenter)

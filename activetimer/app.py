@@ -144,10 +144,12 @@ class TimingWidget(QWidget):
                 if self.orange_button.is_pressed:
                     self.orange_final_time = time.time()
                     self.orange_finished = True
+                    self.orange_started = False
             if self.grey_started:
                 if self.grey_button.is_pressed:
                     self.grey_final_time = time.time()
                     self.grey_finished = True
+                    self.grey_started = False
 
             # Check for start/prime
             if self.orange_pedal_primed:
@@ -158,6 +160,7 @@ class TimingWidget(QWidget):
             else:
                 if self.orange_pedal.is_pressed:
                     self.orange_pedal_primed = True
+                    self.orange_finished = False
             # same but for grey
             if self.grey_pedal_primed:
                 if not self.grey_pedal.is_pressed:
@@ -167,6 +170,7 @@ class TimingWidget(QWidget):
             else:
                 if self.grey_pedal.is_pressed:
                     self.grey_pedal_primed = True
+                    self.grey_finished = False
 
             # get current times
             if self.orange_finished:
@@ -174,16 +178,19 @@ class TimingWidget(QWidget):
                                    self.orange_initial_time
             elif self.orange_started:
                 self.orange_time = time.time() - self.orange_initial_time
+            else:
+                self.orange_time = 0
             if self.grey_finished:
                 self.grey_time = self.grey_final_time - self.grey_initial_time
             elif self.grey_started:
                 self.grey_time = time.time() - self.grey_initial_time
+            else:
+                self.grey_time = 0
 
             # display times
             self.update_orange_time('{:.3f}'.format(self.orange_time))
             self.update_grey_time('{:.3f}'.format(self.grey_time))
 
-            # TODO: make it so negative times don't show
     # lambda for interrupt based loop
     # def set_orange_start(self):
     #     self.orange_started = True

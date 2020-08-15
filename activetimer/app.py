@@ -111,14 +111,14 @@ class TimingWidget(QWidget):
         self.grey_label.setGeometry(0, 520, 1920, 520)
 
         # TODO: make style decent
-        self.orange_label.setStyleSheet("border : 40px solid orange;")
-        self.grey_label.setStyleSheet("border : 40px solid grey;")
+        self.orange_label.setStyleSheet("border : 60px solid orange;")
+        self.grey_label.setStyleSheet("border : 60px solid grey;")
 
         self.orange_label.setText("0.000")
         self.grey_label.setText("0.000")
 
-        self.orange_label.setFont(QFont('Arial', 80))  # TODO: make text beeg
-        self.grey_label.setFont(QFont('Arial', 80))  # TODO: make text beeg
+        self.orange_label.setFont(QFont('Arial', 100))  # TODO: make text beeg
+        self.grey_label.setFont(QFont('Arial', 100))  # TODO: make text beeg
 
         self.orange_label.setAlignment(Qt.AlignCenter)
         self.grey_label.setAlignment(Qt.AlignCenter)

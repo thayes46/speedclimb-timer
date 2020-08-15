@@ -7,7 +7,7 @@ from PyQt5.QtGui import *
 
 
 # Running total of hours worked on this for fun:
-# 62
+# 64
 
 def run():
     while 1:
@@ -21,20 +21,8 @@ def run():
 """
 I really didn't want to make this a megascript, however the Pi GPIO can only
 be called from 1 python script so that lumps pretty much everything to be
-stuck togeth
+stuck together
 """
-
-
-# To add back in on deploy to pi
-# orange_button = Button(24)  # GPIO pin for orange finish button
-# orange_pedal = Button(21)  # GPIO pin for orange start pedal
-# orange_lights = LED(23)  # GPIO pin for orange flashy flashies
-# grey_button = Button(14)  # GPIO pin for grey finish button
-# grey_pedal = Button(20)  # GPIO pin for grey start pedal
-# grey_lights = LED(15)  # GPIO pin for grey flashy flashies
-
-
-# test putting both to pedals
 
 
 class TimingWindow(QMainWindow):
@@ -58,22 +46,6 @@ class TimingWindow(QMainWindow):
         QApplication.processEvents()
         self.timing_widget.yeet()
         self.timing_widget.destroy()
-
-
-def reset_lanes():
-    dummy_time = time.time()
-    orange_started = False
-    orange_pedal_primed = False
-    orange_finished = False
-    orange_initial_time = dummy_time
-    orange_final_time = dummy_time
-    orange_time = dummy_time
-    grey_started = False
-    grey_pedal_primed = False
-    grey_finished = False
-    grey_initial_time = dummy_time
-    grey_final_time = dummy_time
-    grey_time = dummy_time
 
 
 class TimingWidget(QWidget):
@@ -222,7 +194,6 @@ class TimingWidget(QWidget):
 # default slideshow + leaderboard
 
 def display_timer():
-    reset_lanes()
     app = QApplication([])
     window = TimingWindow()
     app.exec_()

@@ -24,6 +24,7 @@ be called from 1 python script so that lumps pretty much everything to be
 stuck togeth
 """
 
+
 # To add back in on deploy to pi
 # orange_button = Button(24)  # GPIO pin for orange finish button
 # orange_pedal = Button(21)  # GPIO pin for orange start pedal
@@ -86,8 +87,8 @@ class TimingWidget(QWidget):
         self.setWindowTitle("Orange and Grey lanes")
 
         # setting window geometry
-        # Timer takes up top half of screen
-        self.setGeometry(0, 0, 1080, 960)
+        # Timer takes up all of screen
+        self.setGeometry(0, 0, 1920, 1080)
 
         # setup UI
         self.UiComponents()
@@ -95,16 +96,16 @@ class TimingWidget(QWidget):
         # potentially arbitrary
         self.dummy_counter = 1
         self.stop_timer = False
-        # test setup
-        self.orange_pedal = Button(21, False)  # orange pedal
-        self.orange_pedal.when_pressed = self.set_orange_start
-        self.orange_button = Button(20, False)  # grey pedal
 
-        self.grey_pedal = Button(24, False)
-        self.grey_button = Button(14, False)
-        self.orange_lights = LED(23)
-        self.grey_lights = LED(15)
+        # GPIO initialization
+        self.orange_button = Button(24, False)  # GPIO pin for orange finish
+        self.orange_pedal = Button(21, False)  # GPIO pin for orange start
+        self.orange_lights = LED(23)  # GPIO pin for orange flashy flashies
+        self.grey_button = Button(14, False)  # GPIO pin for grey finish button
+        self.grey_pedal = Button(20, False)  # GPIO pin for grey start pedal
+        self.grey_lights = LED(15)  # GPIO pin for grey flashy flashies
 
+        # runtime variable initialization
         self.orange_started = False
         self.orange_pedal_primed = False
         self.orange_finished = False
@@ -118,7 +119,15 @@ class TimingWidget(QWidget):
         self.grey_final_time = 0
         self.grey_time = 0
 
+        # test setup for reference if need be
+        # self.orange_pedal = Button(21, False)  # orange pedal
+        # self.orange_pedal.when_pressed = self.set_orange_start
+        # self.orange_button = Button(20, False)  # grey pedal
 
+        # self.grey_pedal = Button(24, False)
+        # self.grey_button = Button(14, False)
+        # self.orange_lights = LED(23)
+        # self.grey_lights = LED(15)
 
     def begin(self):
         self.run()
@@ -126,8 +135,8 @@ class TimingWidget(QWidget):
     # method for widgets
     def UiComponents(self):
         # give labels their juice
-        self.orange_label.setGeometry(0, 0, 1080, 480)
-        self.grey_label.setGeometry(0, 480, 1080, 480)
+        self.orange_label.setGeometry(0, 0, 1920, 540)
+        self.grey_label.setGeometry(0, 540, 1920, 540)
 
         # TODO: make style decent
         self.orange_label.setStyleSheet("border : 16px solid orange;")
@@ -190,9 +199,8 @@ class TimingWidget(QWidget):
             # get current times
             if self.orange_finished:
                 self.orange_time = self.orange_final_time - \
-                              self.orange_initial_time
+                                   self.orange_initial_time
             elif self.orange_started:
-                print("updating orange")
                 self.orange_time = time.time() - self.orange_initial_time
             if self.grey_finished:
                 self.grey_time = self.grey_final_time - self.grey_initial_time
@@ -203,9 +211,11 @@ class TimingWidget(QWidget):
             self.update_orange_time('{:.3f}'.format(self.orange_time))
             self.update_grey_time('{:.3f}'.format(self.grey_time))
 
-    def set_orange_start(self):
-        self.orange_started = True
-        self.orange_initial_time = time.time()
+            # TODO: make it so negative times don't show
+    # lambda for interrupt based loop
+    # def set_orange_start(self):
+    #     self.orange_started = True
+    #     self.orange_initial_time = time.time()
 
 
 # class DefaultWidget(QWidget):
@@ -221,4 +231,3 @@ def display_timer():
 def display_leaders():
     # TODO: implement
     pass
-

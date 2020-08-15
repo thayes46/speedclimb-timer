@@ -88,7 +88,7 @@ class TimingWidget(QWidget):
 
         # setting window geometry
         # Timer takes up all of screen
-        self.setGeometry(0, 0, 1920, 1080)
+        self.setGeometry(0, 0, 1920, 1040)
 
         # setup UI
         self.UiComponents()
@@ -135,8 +135,8 @@ class TimingWidget(QWidget):
     # method for widgets
     def UiComponents(self):
         # give labels their juice
-        self.orange_label.setGeometry(0, 0, 1920, 540)
-        self.grey_label.setGeometry(0, 540, 1920, 540)
+        self.orange_label.setGeometry(0, 0, 1920, 520)
+        self.grey_label.setGeometry(0, 520, 1920, 520)
 
         # TODO: make style decent
         self.orange_label.setStyleSheet("border : 40px solid orange;")

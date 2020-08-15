@@ -161,6 +161,7 @@ class TimingWidget(QWidget):
                 if self.orange_pedal.is_pressed:
                     self.orange_pedal_primed = True
                     self.orange_finished = False
+                    self.orange_started = False
             # same but for grey
             if self.grey_pedal_primed:
                 if not self.grey_pedal.is_pressed:
@@ -171,6 +172,7 @@ class TimingWidget(QWidget):
                 if self.grey_pedal.is_pressed:
                     self.grey_pedal_primed = True
                     self.grey_finished = False
+                    self.grey_started = False
 
             # get current times
             if self.orange_finished:
